@@ -7,6 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const typingText = document.getElementById('typingText');
   let isPlaying = false;
 
+  // 🌸 Mobile Performance Mode
+const isMobile = window.innerWidth < 768;
+
+if (isMobile) {
+  console.log("Mobile detected: Performance mode ON");
+
+  // Reduce sparkle and heart frequency
+  window.sparkleSpawnRate = 1200;  // slower sparkle creation
+  window.heartSpawnRate = 700;     // fewer hearts per second
+
+  // Disable or reduce background particle effects if you have any heavy ones
+  document.body.classList.add("low-performance");
+} else {
+  window.sparkleSpawnRate = 500;   // normal sparkle frequency
+  window.heartSpawnRate = 350;
+}
+
+
   // ----------------- Typing Animation -----------------
   const text = "Once upon a time, in a pink little world... two hearts began to beat together 💕";
   let i = 0;
@@ -295,7 +313,7 @@ window.addEventListener('load', () => {
     sparklesContainer.appendChild(sparkle);
     setTimeout(() => sparkle.remove(), 1000);
   }
-  const sparkleInterval = setInterval(spawnSparkle, 150);
+  const sparkleInterval = setInterval(spawnSparkle, window.sparkleSpawnRate);
 
   // Keep preloader for 4 seconds, then fade out
   setTimeout(() => {
@@ -326,7 +344,7 @@ window.addEventListener('load', () => {
     sparklesContainer.appendChild(sparkle);
     setTimeout(() => sparkle.remove(), 1000);
   }
-  const sparkleInterval = setInterval(spawnSparkle, 150);
+  const sparkleInterval = setInterval(spawnSparkle, window.sparkleSpawnRate);
 
   // Initialize butterfly positions and radius
   butterflies.forEach(b => {
