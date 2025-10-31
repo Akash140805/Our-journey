@@ -17,6 +17,7 @@
 }
 
 
+
 /* BODY & BACKGROUND */
 body {
   margin: 0;
@@ -695,6 +696,11 @@ header {
   opacity: 1;
   transform: translateY(0);
 }
+
+.sparkle, .heart, .petal, .butterfly {
+  will-change: transform, opacity;
+}
+
 
 
 

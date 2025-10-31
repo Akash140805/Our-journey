@@ -141,7 +141,7 @@ musicToggle.addEventListener('click', () => {
   }
 
   // ----------------- Optimized Sparkles -----------------
-  const MAX_SPARKLES = 40;
+  const MAX_SPARKLES = 20;
   const sparklePool = [];
 
   function createSparkles(num) {
