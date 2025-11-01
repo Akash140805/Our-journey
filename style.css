@@ -707,6 +707,14 @@ img {
   transform: translateZ(0);
 }
 
+/* ✨ Remove tap highlight globally */
+* {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  outline: none;
+}
+
+
 
 
 
