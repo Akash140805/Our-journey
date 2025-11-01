@@ -365,7 +365,7 @@ window.addEventListener('load', () => {
     // Stop spawning sparkles after 2s
     setTimeout(() => clearInterval(sparkleInterval), 2000);
 
-  }, 4000);
+  }, 2500);
 });
 
 // ----- Preloader Butterflies Animation -----
