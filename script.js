@@ -7,6 +7,8 @@ document.addEventListener("visibilitychange", () => {
   animationsActive = !document.hidden;
 });
 
+
+
   // ----------------- Variables -----------------
   const envelope = document.getElementById('envelope');
   const floatingLove = document.querySelector('.floating-love');
@@ -169,25 +171,35 @@ musicToggle.addEventListener('click', () => {
     }
   }
 
-  // ----------------- Continuous Magical Sparkles -----------------
-  const sparkleContainer = document.querySelector('.soft-sparkles');
-  setInterval(() => {
-    if (!animationsActive) return;
-    if (sparklePool.length >= MAX_SPARKLES) return;
-    const sparkle = document.createElement('div');
-    sparkle.className = 'sparkle';
-    sparkle.style.left = Math.random() * 100 + 'vw';
-    const size = 4 + Math.random() * 8;
-    sparkle.style.width = size + 'px';
-    sparkle.style.height = size + 'px';
-    sparkle.style.animationDuration = (4 + Math.random() * 4) + 's';
-    sparkleContainer.appendChild(sparkle);
-    sparklePool.push(sparkle);
-    setTimeout(() => {
-      sparkle.remove();
-      sparklePool.shift();
-    }, parseFloat(sparkle.style.animationDuration) * 1000);
-  }, 200);
+  // ----------------- Throttled Continuous Magical Sparkles -----------------
+const sparkleContainer = document.querySelector('.soft-sparkles');
+let lastSparkleTime = 0;
+
+function sparkleLoop(timestamp) {
+  if (!animationsActive) return requestAnimationFrame(sparkleLoop);
+
+  if (timestamp - lastSparkleTime > (isMobile ? 800 : 300)) {
+    if (sparklePool.length < MAX_SPARKLES) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      const size = 4 + Math.random() * 8;
+      sparkle.style.width = size + 'px';
+      sparkle.style.height = size + 'px';
+      sparkle.style.animationDuration = (4 + Math.random() * 4) + 's';
+      sparkleContainer.appendChild(sparkle);
+      sparklePool.push(sparkle);
+      setTimeout(() => {
+        sparkle.remove();
+        sparklePool.shift();
+      }, parseFloat(sparkle.style.animationDuration) * 1000);
+    }
+    lastSparkleTime = timestamp;
+  }
+  requestAnimationFrame(sparkleLoop);
+}
+requestAnimationFrame(sparkleLoop);
+
 
   // ----------------- Cursor Heart Trail (throttled) -----------------
   let lastMouse = 0;
@@ -304,6 +316,23 @@ musicToggle.addEventListener('click', () => {
   }
   spawnStars(30);
 });
+
+// ----------------- Defer Non-Critical Animations -----------------
+if ('requestIdleCallback' in window) {
+  requestIdleCallback(() => {
+    spawnButterflies(5);
+    spawnPetals(20);
+    spawnStars(30);
+  }, { timeout: 3000 });
+} else {
+  // fallback for browsers without support
+  setTimeout(() => {
+    spawnButterflies(5);
+    spawnPetals(20);
+    spawnStars(30);
+  }, 3000);
+}
+
 
 // Hide preloader once page is loaded
 // Hide preloader after a delay
