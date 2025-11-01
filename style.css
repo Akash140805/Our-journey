@@ -707,12 +707,15 @@ img {
   transform: translateZ(0);
 }
 
-/* ✨ Remove tap highlight globally */
-* {
+
+/* 🩷 Remove blue tap highlight and accidental selection on mobile */
+.envelope,
+.envelope * {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   outline: none;
 }
+
 
 
 
