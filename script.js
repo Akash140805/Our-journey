@@ -399,7 +399,7 @@ window.addEventListener('load', () => {
     butterflies.forEach(butterfly => butterfly.classList.add('fly-away'));
     preloader.classList.add('hidden');
     setTimeout(() => clearInterval(sparkleInterval), 2000);
-  }, 4000);
+  }, 2000);
 });
 
 // ---- Letter Text Animation ----
@@ -417,6 +417,11 @@ const envelope = document.getElementById('envelope');
 envelope.addEventListener('click', () => {
   setTimeout(revealLetterText, 1200); // slight delay after opening animation
 });
+
+if (document.querySelectorAll('.heart').length > 30) {
+  document.querySelector('.heart').remove();
+}
+
 
 
 
