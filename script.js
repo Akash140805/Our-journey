@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+  let animationsActive = true;
+
+// Pause animations when tab is inactive (browser minimized or switched)
+document.addEventListener("visibilitychange", () => {
+  animationsActive = !document.hidden;
+});
+
   // ----------------- Variables -----------------
   const envelope = document.getElementById('envelope');
   const floatingLove = document.querySelector('.floating-love');
@@ -164,6 +172,7 @@ musicToggle.addEventListener('click', () => {
   // ----------------- Continuous Magical Sparkles -----------------
   const sparkleContainer = document.querySelector('.soft-sparkles');
   setInterval(() => {
+    if (!animationsActive) return;
     if (sparklePool.length >= MAX_SPARKLES) return;
     const sparkle = document.createElement('div');
     sparkle.className = 'sparkle';
@@ -183,8 +192,9 @@ musicToggle.addEventListener('click', () => {
   // ----------------- Cursor Heart Trail (throttled) -----------------
   let lastMouse = 0;
   document.addEventListener('mousemove', e => {
+    if (!animationsActive) return;
     const now = Date.now();
-    if (now - lastMouse < 50) return; // 20fps
+    if (now - lastMouse < 70) return; // 20fps
     lastMouse = now;
 
     const heart = document.createElement('div');
@@ -206,7 +216,7 @@ musicToggle.addEventListener('click', () => {
   let catPaused = false;
 
   function moveCat() {
-    if (!catPaused) {
+    if (animationsActive && !catPaused) {
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
 

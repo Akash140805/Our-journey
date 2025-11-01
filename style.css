@@ -701,6 +701,13 @@ header {
   will-change: transform, opacity;
 }
 
+img {
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+
 
 
 
