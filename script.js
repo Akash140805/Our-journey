@@ -418,9 +418,7 @@ envelope.addEventListener('click', () => {
   setTimeout(revealLetterText, 1200); // slight delay after opening animation
 });
 
-if (document.querySelectorAll('.heart').length > 30) {
-  document.querySelector('.heart').remove();
-}
+
 
 
 
